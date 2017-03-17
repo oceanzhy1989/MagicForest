@@ -1,0 +1,42 @@
+
+
+----Launcher screen----
+
+MAPPER		Mapper
+PROM		Size of PROM
+CROM		Size of CROM
+INFO		Mirroring(Horizontal or Vertical)
+		1=SRAM enabled
+		1=512-byte trainer present
+		1=Four-screen VRAM layout
+All CRC		CRC of the entire ROM file (PROM+CROM)
+P CRC		CRC of PROM
+C CRC		CRC of CROM
+CHECK		The check result display
+   The thing of "NO?" seems in the result of CHECK and is not in the data base or seems abnormal ROM.
+   The question is not a translation of abnormal ROM because it was displayed as "NO?".
+HEAD		Is there garbage up to unused area address 8-0x0f of the rivet and bolt header?
+DBInfo		Information on data base(Mapper;PROM;CROM;MR;BAT;TR;ScM)
+
+"R=D" displays whether information on "Mapper" of ROM, "Mirroring", "Trainer", and "Four-screen VRAM layout" is corresponding to the data base.
+The data base and (*S) agrees if it is "=". 
+
+
+
+-- The data display of FDS is different from NES. 
+PROM		Number of blocks in FDS file
+CROM		Day of game in FDS file sale?
+Info		Game identification ID
+All CRC		CRC
+P CRC		Content of block (0:Data 1:Character data 2:Name table data)
+C CRC		Actual number of blocks
+CHECK		The check result display
+HEAD		reserve
+DBInfo		reserve
+R=D		reserve
+NAME		Game name of data base
+MAKER		Maker name of data base
+
+
+
+
