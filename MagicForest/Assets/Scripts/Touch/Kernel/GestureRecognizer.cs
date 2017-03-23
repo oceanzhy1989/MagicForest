@@ -231,18 +231,6 @@ public abstract class Gesture
     }
   }
 
-  public SkillCategory SkillTags
-  {
-    get
-    {
-      return skillTag;
-    }
-    set
-    {
-      skillTag = value;
-    }
-  }
-
   public GestureRecognizer Recognizer
   {
     get
@@ -354,7 +342,7 @@ public abstract class Gesture
     int layermask = (1 << LayerMask.NameToLayer("Terrains")) | (1 << LayerMask.NameToLayer("BuildingCollider"));
     if (Physics.Raycast(ray, out hitInfo, 200f, layermask)) {
       cur_touch_worldpos = hitInfo.point;
-      GameObject go = DashFire.LogicForGfxThread.PlayerSelf;
+            GameObject go = null;// DashFire.LogicForGfxThread.PlayerSelf;
       if (null != go) {
         Vector3 srcPos = go.transform.position;
         Vector3 targetPos = cur_touch_worldpos;
@@ -407,16 +395,10 @@ public abstract class Gesture
     //layermask |= 1 << LayerMask.NameToLayer("SceneObjEffect");
     //layermask |= 1 << LayerMask.NameToLayer("SceneObj");
     //layermask = ~layermask;
-    SkillController player_skill_ctrl = null;
-    if (null != player_skill_ctrl) {
-      SkillInputData skill_input_data = player_skill_ctrl.GetSkillInputData(SkillTags);
-      if (null != skill_input_data) {
-        skill_blear_radius = skill_input_data.targetChooseRange;
-      }
-    }
+
     if (Physics.Raycast(ray, out hitInfo, 200f, m_TerrainAndCharacterLayer)) {
       start_touch_worldpos = hitInfo.point;
-      GameObject go = DashFire.LogicForGfxThread.PlayerSelf;
+            GameObject go = null;// DashFire.LogicForGfxThread.PlayerSelf;
       if (null != go) {
         Vector3 srcPos = go.transform.position;
         Vector3 targetPos = start_touch_worldpos;
@@ -450,50 +432,17 @@ public abstract class Gesture
     Ray ray = Camera.main.ScreenPointToRay(touch_pos);
     RaycastHit hitInfo;
     GameObject hitGameObj = null;
-    SkillController player_skill_ctrl = null;
-    if (null != player_skill_ctrl) {
-      SkillInputData skill_input_data = player_skill_ctrl.GetSkillInputData(SkillTags);
-      if (null != skill_input_data) {
-        skill_blear_radius = skill_input_data.targetChooseRange;
-      }
-    }
-    if (Physics.Raycast(ray, out hitInfo, 200f, m_TerrainAndCharacterLayer)) {
-      Collider[] hitObjs = Physics.OverlapSphere(hitInfo.point, skill_blear_radius, m_CharacterLayer);
-      if (hitObjs.Length > 0) {
-        hitGameObj = hitObjs[0].gameObject;
-        if (null != hitGameObj) {
-          SharedGameObjectInfo selfInfo = LogicForGfxThread.PlayerSelfInfo;
-          SharedGameObjectInfo targetInfo = LogicForGfxThread.GetSharedGameObjectInfo(hitGameObj);
-          if(null != targetInfo) {
-            TriggerMgr.Instance.OnTriggerInteractive(targetInfo.m_ActorId);
-          }
-          if (null != targetInfo && targetInfo.IsNpc) {
-            TriggerMgr.Instance.OnTriggerNpc(targetInfo.m_ActorId);
-          }
-          if (null != targetInfo && null != selfInfo && targetInfo.IsPlayer && targetInfo.m_ActorId != selfInfo.m_ActorId) {
-            TriggerMgr.Instance.OnTriggerPlayer(targetInfo.m_ActorId);
-          } else {
-            TriggerMgr.Instance.OnTriggerNonePlayerClicked();
-          }
-          if (null != targetInfo && null!=selfInfo) {
-            // camp
-            if(DashFire.CharacterInfo.GetRelation(selfInfo.CampId,targetInfo.CampId)==DashFire.CharacterRelation.RELATION_ENEMY && targetInfo.Hp>0) {
-              object_id = targetInfo.m_LogicObjectId;
-            }
-            if (WorldSystem.Instance.IsCity()) {
-              if (targetInfo.IsPlayer && targetInfo.m_ActorId != LogicForGfxThread.PlayerSelfInfo.m_ActorId) {
-                LogicForGfxThread.EventForGfx.Publish("check_player_info", "ui", targetInfo.m_ActorId);
-              }
-            }
-          }
-        }
-      } else {
-        TriggerMgr.Instance.OnTriggerNonePlayerClicked();
-      }
-    }
 
-    if (-1 != object_id && null != hitGameObj) {
-      LogicForGfxThread.EventForGfx.Publish("Op_InputEffect", "Input", GestureEvent.OnSingleTap, hitGameObj.transform.position.x, hitGameObj.transform.position.y, hitGameObj.transform.position.z, true, false);
+    if (Physics.Raycast(ray, out hitInfo, 200f, m_TerrainAndCharacterLayer))
+    {
+        Collider[] hitObjs = Physics.OverlapSphere(hitInfo.point, skill_blear_radius, m_CharacterLayer);
+        if (hitObjs.Length > 0)
+        {
+            hitGameObj = hitObjs[0].gameObject;
+            if (null != hitGameObj)
+            {
+            }
+        }
     }
 
     return object_id;
@@ -513,7 +462,7 @@ public abstract class GestureRecognizerBase<T> : GestureRecognizer where T : Ges
       base.Start();
       InitGestures();
     } catch (System.Exception ex) {
-      DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
+      //DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
     }
   }
 
@@ -570,7 +519,7 @@ public abstract class GestureRecognizerBase<T> : GestureRecognizer where T : Ges
       }
     }
     
-    if (DashFire.TouchType.Regognizer != TouchManager.curTouchState) {
+    if (MagicForestClient.TouchType.Regognizer != TouchManager.curTouchState) {
       return false;
     }
     
@@ -592,11 +541,6 @@ public abstract class GestureRecognizerBase<T> : GestureRecognizer where T : Ges
   protected virtual float CaclTowards(T gesture)
   {
     return float.NegativeInfinity;
-  }
-
-  protected virtual SkillCategory CaclSkillTag(T gesture)
-  {
-    return SkillCategory.kNone;
   }
 
   protected virtual T CreateGesture()
@@ -794,10 +738,7 @@ public abstract class GestureRecognizerBase<T> : GestureRecognizer where T : Ges
                 gesture.HintFlag = HintType.RFailure;
                 RaiseHintEvent(gesture);
               } else {
-                if (SkillCategory.kNone != gesture.SkillTags) {
-                  gesture.HintFlag = HintType.RSucceed;
-                  RaiseHintEvent(gesture);
-                }
+
               }
             }
 
@@ -830,7 +771,7 @@ public abstract class GestureRecognizerBase<T> : GestureRecognizer where T : Ges
     gesture.SectionNum = CaclSection();
     gesture.Towards = CaclTowards(gesture);
     if ("OnEasyGesture" == gesture.Recognizer.EventMessageName) {
-      gesture.SkillTags = CaclSkillTag(gesture);
+
     }
     TouchManager.FireEvent(gesture);
   }
@@ -886,7 +827,7 @@ public abstract class GestureRecognizer : MonoBehaviour
         ResetMode = GetDefaultResetMode();
       }
     } catch (System.Exception ex) {
-      DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
+      //DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
     }
   }
 
@@ -924,7 +865,7 @@ public abstract class GestureRecognizer : MonoBehaviour
         return;
       }
     } catch (System.Exception ex) {
-      DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
+      //DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
     }
   }
 

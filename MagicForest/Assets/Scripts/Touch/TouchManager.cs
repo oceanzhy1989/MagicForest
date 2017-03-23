@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using DashFire;
+using MagicForestClient;
 
 /// Touch Manager
 public class TouchManager : MonoBehaviour 
@@ -46,14 +46,14 @@ public class TouchManager : MonoBehaviour
       //  && (gesture.Position.y < Screen.height / 3 && gesture.Position.x < Screen.width / 4)) {
       //} else {
         GestureArgs e = gesture.ToGestureArgs();
-        LogicForGfxThread.FireGestureEvent(e);
+        EventDispatcher.FireGestureEvent(e);
       //}
     }
 
-    if (DashFire.PlayerControl.Instance.EnableSkillInput) {
-      if (OnGestureEvent != null)
-        OnGestureEvent(gesture);
-    }
+    //if (PlayerControl.Instance.EnableSkillInput) {
+    //  if (OnGestureEvent != null)
+    //    OnGestureEvent(gesture);
+    //}
 
     //Debug.Log("...input SkillTags : " + gesture.SkillTags + ", event : " + gesture.Recognizer.EventMessageName + ", state : " + curTouchState.ToString());
   }
@@ -62,10 +62,10 @@ public class TouchManager : MonoBehaviour
   {
     if (!TouchEnable) return;
 
-    int scene_id = WorldSystem.Instance.GetCurSceneId();
+    int scene_id = 1;
     if (scene_id > 0) {
       GestureArgs e = eventData.ToGestureArgs();
-      LogicForGfxThread.FireGestureEvent(e);
+      EventDispatcher.FireGestureEvent(e);
     }
 
     if (OnFingerEvent != null)
@@ -118,7 +118,7 @@ public class TouchManager : MonoBehaviour
 
   public NGUIJoyStick JoyStickUI = null;
 
-  public static DashFire.TouchType curTouchState = DashFire.TouchType.Regognizer;
+  public static MagicForestClient.TouchType curTouchState = MagicForestClient.TouchType.Regognizer;
   private static bool gestureEnable = true;
   public static bool GestureEnable
   {
@@ -194,7 +194,8 @@ public class TouchManager : MonoBehaviour
       Destroy(inputProvider.gameObject);
     }
 
-    inputProvider = ResourceSystem.NewObject(inputPrefab) as InputProvider;
+    //inputProvider = ResourceSystem.NewObject(inputPrefab) as InputProvider;
+    inputProvider = Instantiate(inputPrefab) as InputProvider;
     inputProvider.name = inputPrefab.name;
     inputProvider.transform.parent = this.transform;
 
@@ -529,7 +530,7 @@ public class TouchManager : MonoBehaviour
     try {
       CheckInit();
     } catch (System.Exception ex) {
-      DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
+      //DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
     }
   }
 
@@ -540,7 +541,7 @@ public class TouchManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
       }
     } catch (System.Exception ex) {
-      DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
+      //DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
     }
   }
   void OnDestroy()
@@ -553,7 +554,7 @@ public class TouchManager : MonoBehaviour
     try {
       CheckInit();
     } catch (System.Exception ex) {
-      DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
+      //DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
     }
   }
 
@@ -584,7 +585,7 @@ public class TouchManager : MonoBehaviour
         UpdateFingers();        
       }
     } catch (System.Exception ex) {
-      DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
+      //DashFire.LogicForGfxThread.LogicErrorLog("Exception {0}\n{1}", ex.Message, ex.StackTrace);
     }
   }
 

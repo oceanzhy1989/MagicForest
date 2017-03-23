@@ -22,6 +22,21 @@ namespace MagicForestClient
         Touch = 0,
         Joystick = 1,
     }
+    public enum GestureEvent : int
+    {
+        OnLine = 0,
+        OnEasyGesture = 1,
+        OnFingerDown = 100,
+        OnFingerMove = 101,
+        OnFingerUp = 102,
+        OnTwoFingerDown = 103,
+        OnTwoFingerMove = 104,
+        OnTwoFingerUp = 105,
+        OnSingleTap = 201,
+        OnDoubleTap = 202,
+        OnLongPress = 203,
+        OnPinch = 204,
+    }
 
     public class GestureArgs
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicForestClient", "MagicForestClient\MagicForestClient.csproj", "{9B1E4A6A-C707-4026-BAF4-B1E4A38D668E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicForestClient", "MagicForestClient\MagicForestClient.csproj", "{F7AB5BB2-20A2-4176-811B-83246B6E6614}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9B1E4A6A-C707-4026-BAF4-B1E4A38D668E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B1E4A6A-C707-4026-BAF4-B1E4A38D668E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B1E4A6A-C707-4026-BAF4-B1E4A38D668E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B1E4A6A-C707-4026-BAF4-B1E4A38D668E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7AB5BB2-20A2-4176-811B-83246B6E6614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7AB5BB2-20A2-4176-811B-83246B6E6614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7AB5BB2-20A2-4176-811B-83246B6E6614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7AB5BB2-20A2-4176-811B-83246B6E6614}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

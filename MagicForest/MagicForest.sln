@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicForest.CSharp", "MagicForest.CSharp.csproj", "{1FE039D2-BD08-1F3E-60E2-E76136B81258}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicForest.CSharp.Editor", "MagicForest.CSharp.Editor.csproj", "{5D1C7554-58FF-6EA4-199A-63093E85448E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{1FE039D2-BD08-1F3E-60E2-E76136B81258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE039D2-BD08-1F3E-60E2-E76136B81258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FE039D2-BD08-1F3E-60E2-E76136B81258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D1C7554-58FF-6EA4-199A-63093E85448E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D1C7554-58FF-6EA4-199A-63093E85448E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D1C7554-58FF-6EA4-199A-63093E85448E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D1C7554-58FF-6EA4-199A-63093E85448E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
