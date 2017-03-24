@@ -29,13 +29,21 @@ namespace MagicForestClient
                 //float speed = 0.0001f * m_CurJoyTargetPos.magnitude;
                 //float speed = m_CurJoyTargetPos.magnitude > 65.0f ? 0.01f : 0.0f;
                 //player.transform.position += new Vector3(speed * Mathf.Sin(m_CurJoyDir), speed * Mathf.Cos(m_CurJoyDir), 0);
-                float fMaxForce = 0.45f;
-                float force = m_CurJoyTargetPos.magnitude > 65.0f ? 1.0f : m_CurJoyTargetPos.magnitude / 65.0f;
+                float fMaxForce = LogicInterface.s_LogicParameters.fMaxAcceleration;
+                float force = m_CurJoyTargetPos.magnitude > LogicInterface.s_LogicParameters.fJoystickShowAreaRadius ? 
+                    1.0f : m_CurJoyTargetPos.magnitude / LogicInterface.s_LogicParameters.fJoystickShowAreaRadius;
                 force *= fMaxForce;
                 Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
                 if(rb != null)
                 {
-                    rb.AddForce(new Vector2(force * Mathf.Sin(m_CurJoyDir), force * Mathf.Cos(m_CurJoyDir)));
+                    Vector2 vFPropellent = new Vector2(force * Mathf.Sin(m_CurJoyDir), force * Mathf.Cos(m_CurJoyDir));
+                    Vector2 vFResist = -rb.velocity * rb.velocity.magnitude * LogicInterface.s_LogicParameters.fResistance;
+                    rb.AddForce(vFPropellent + vFResist);
+
+                    if(rb.velocity.magnitude > LogicInterface.s_LogicParameters.fMaxSpeed)
+                    {
+                        rb.velocity = rb.velocity.normalized * LogicInterface.s_LogicParameters.fMaxSpeed;
+                    }
                 }
             }
         }

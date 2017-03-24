@@ -76,6 +76,8 @@ public class NGUIJoyStick : MonoBehaviour
     mParent = mTrans.parent;
     mRoot = NGUITools.FindInParents<UIRoot>(mParent);
 
+    MagicForestClient.LogicInterface.s_LogicParameters.fJoystickShowAreaRadius = showAreaRadius;
+
     ResetStickPos();
   }
   void Update()

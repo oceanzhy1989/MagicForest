@@ -23,6 +23,15 @@ namespace MagicForestClient
             }
         }
 
+        public class LogicParameters
+        {
+            public float fJoystickShowAreaRadius;
+            public float fMaxAcceleration;
+            public float fMaxSpeed;
+            public float fResistance;
+        }
+
+        public static LogicParameters s_LogicParameters = new LogicParameters();
         private GameObject m_PlayerSelf = null;
     }
 }
